@@ -42,10 +42,6 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        // testing pingpong threading
-//        PingPong pingPong = new PingPong();
-
-
         // set swipe layout
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
@@ -153,7 +149,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
 
         // delete old data in database
         database.execSQL("DELETE FROM news");
-//        database.execSQL("DELETE FROM comments");
+        database.execSQL("DELETE FROM comments");
 
         Toast.makeText(this,"Refreshing", Toast.LENGTH_LONG).show();
 
