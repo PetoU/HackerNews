@@ -1,7 +1,6 @@
 package com.whatever.hackernews;
 
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,10 +20,12 @@ import android.view.View;
 import android.widget.*;
 import com.commonsware.cwac.loaderex.acl.SQLiteCursorLoader;
 import com.whatever.hackernews.Detail.DetailActivity;
+import com.whatever.hackernews.login.LoginActivity;
 
 
 public class MainActivity extends ActionBarActivity implements Handler.Callback, LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener {
 
+    private static final int LOGIN_REQUEST = 10;
     protected Handler handler;
     protected Messenger messenger;
     private Long insertResult;
@@ -36,6 +37,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
     private String commentsLink;
     private int positionInList;
     private Cursor cursor;
+    private String sessionIDcookie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,9 +178,14 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
 
             // start login activity
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, LOGIN_REQUEST);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        sessionIDcookie = data.getStringExtra("sessionID");
     }
 }

@@ -25,7 +25,7 @@
             android:label="@string/title_activity_detail" >
         </activity>
         <activity
-            android:name="com.whatever.hackernews.LoginActivity"
+            android:name=".login.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
     </application>
