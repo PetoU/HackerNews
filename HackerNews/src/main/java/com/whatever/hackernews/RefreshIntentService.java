@@ -47,6 +47,7 @@ public class RefreshIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        
 
         // set database helper and database
         JSONdatabaseHelper databaseHelper = JSONdatabaseHelper.getInstance(getApplicationContext());
@@ -109,7 +110,6 @@ public class RefreshIntentService extends IntentService {
 
         // parse whole string to JSONArray and JSONObject
         // + 15 because im too lazy to count from beginning
-
 
         if (response != null) {
             jsonArrayString = response.substring(response.indexOf("\"collection1\"") + 15, response.length() - 2);

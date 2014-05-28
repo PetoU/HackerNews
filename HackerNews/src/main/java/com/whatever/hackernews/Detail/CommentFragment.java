@@ -20,7 +20,7 @@ import com.whatever.hackernews.R;
 /**
  * Created by PetoU on 19/05/14.
  */
-public class CommentFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class CommentFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, AsyncParseComments.AsyncParseListener {
 
 
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -32,9 +32,9 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
     private TextView titleText;
     private TextView linkText;
     private ListView listView;
+    private Bundle args;
 
     public static Fragment newInstance(int sectionNumber, String commentsLink, int positionInList) {
-
 
         CommentFragment commentFragment = new CommentFragment();
         Bundle args = new Bundle();
@@ -54,18 +54,18 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
         View rootView = null;
-        Bundle args = getArguments();
+        args = getArguments();
         positionInList = args.getInt("position_in_list");
         commentsLink = args.getString("commentsLink");
+
+        // parse comments in advance enough
+        AsyncParseComments loadComments = new AsyncParseComments(this);
+        loadComments.execute(new String[]{commentsLink});
 
         // database setup
         dbHelper = JSONdatabaseHelper.getInstance(getActivity());
         database = JSONdatabaseHelper.getDatabase();
-
-        //restart Loaders
-        getLoaderManager().restartLoader(0, args, this);
 
         //adapter for comments session
         commentsCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.comment_row, null, new String[]{"comment"}, new int[]{R.id.comment}, 0);
@@ -122,4 +122,10 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
         commentsCursorAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onParseCommentsComplete(String resposnse) {
+
+        //restart Loaders
+        getLoaderManager().restartLoader(0, args, this);
+    }
 }

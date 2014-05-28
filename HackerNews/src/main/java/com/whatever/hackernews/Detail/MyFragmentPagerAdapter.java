@@ -1,4 +1,4 @@
-package com.whatever.hackernews;
+package com.whatever.hackernews.Detail;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 import com.whatever.hackernews.Detail.CommentFragment;
 import com.whatever.hackernews.Detail.MainFragment;
+import com.whatever.hackernews.R;
 
 
 import java.lang.ref.WeakReference;
@@ -19,7 +20,6 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private final WeakReference<Context> m_Context;
     private final int positionInList;
     private String commentsLink;
-
     public MyFragmentPagerAdapter(FragmentManager fm, Context context, String commentsLink, int positionInList) {
         super(fm);
         this.commentsLink = commentsLink;

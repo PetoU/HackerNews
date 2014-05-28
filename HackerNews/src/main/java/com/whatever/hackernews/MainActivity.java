@@ -72,10 +72,6 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
                 cursor.moveToPosition(positionInList);
                 commentsLink = cursor.getString(5);
 
-                // parse comments in advance enough
-                AsyncParseComments loadComments = new AsyncParseComments();
-                loadComments.execute(new String[]{commentsLink});
-
                 Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
                 intent.putExtra("commentsLink", commentsLink);
                 intent.putExtra("position_in_list", positionInList);

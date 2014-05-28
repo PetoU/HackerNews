@@ -1,9 +1,11 @@
-package com.whatever.hackernews;
+package com.whatever.hackernews.Detail;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
+import com.whatever.hackernews.JSONdatabaseHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,6 +17,13 @@ import java.io.IOException;
  * Created by PetoU on 12/05/14.
  */
 public class AsyncParseComments extends AsyncTask<String, Void, String> {
+
+    private AsyncParseListener listener;
+
+    public AsyncParseComments(AsyncParseListener listener){
+        this.listener = listener;
+    }
+
     @Override
     protected String doInBackground(String... params) {
 
@@ -44,7 +53,15 @@ public class AsyncParseComments extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        listener.onParseCommentsComplete(s);
+    }
+
+    public interface AsyncParseListener{
+            public void onParseCommentsComplete(String resposnse);
     }
 }

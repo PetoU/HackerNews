@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import com.whatever.hackernews.MyFragmentPagerAdapter;
 import com.whatever.hackernews.R;
 
 
