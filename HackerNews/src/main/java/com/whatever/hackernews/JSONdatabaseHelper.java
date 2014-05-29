@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class JSONdatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "json.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     //singleton for one instance of database
     private static JSONdatabaseHelper Singleton;
@@ -54,6 +54,7 @@ public class JSONdatabaseHelper extends SQLiteOpenHelper {
                     "added TEXT )");
 
         db.execSQL("CREATE TABLE comments ( " + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "padding INTEGER, "+
                     "commentsLink TEXT, " +
                     "comment TEXT )");
 

@@ -92,7 +92,7 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
 
         String testQuery = "SELECT * FROM comments GROUP BY commentsLink;";
 
-        String query = " SELECT _id, commentsLink, comment" +
+        String query = " SELECT _id, padding, commentsLink, comment" +
                 " FROM " + "comments" +
                 " WHERE commentsLink='" + commentsLink + "';";
 

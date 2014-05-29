@@ -84,7 +84,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
             webView = (WebView) rootView.findViewById(R.id.webView);
             webView.getSettings().setJavaScriptEnabled(true);
-
+            webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
 
         }
 
