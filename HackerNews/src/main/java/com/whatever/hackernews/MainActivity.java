@@ -58,9 +58,9 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
         database = JSONdatabaseHelper.getDatabase();
 
         // set listview and cursor for database
-        cursorAdapter = new SimpleCursorAdapter(this, R.layout.listrow, null, new String[]{"titleString", "commentsString"}, new int[]{R.id.title, R.id.comments}, SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
+        cursorAdapter = new SimpleCursorAdapter(this, R.layout.main_forum_listrow, null, new String[]{"titleString", "commentsString"}, new int[]{R.id.title, R.id.comments}, SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.explistView);
         listView.setAdapter(cursorAdapter);
 
         // on item click setup

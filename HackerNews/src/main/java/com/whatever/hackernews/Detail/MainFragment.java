@@ -68,7 +68,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         database = JSONdatabaseHelper.getDatabase();
 
         //adapter for comments session
-//        commentsCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.comment_row, null, new String[]{"comment"}, new int[]{R.id.comment}, SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
+//        commentsCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.comments_group_row, null, new String[]{"comment"}, new int[]{R.id.comment}, SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
 
         if (args != null) {
             section = args.getInt(ARG_SECTION_NUMBER);
@@ -76,7 +76,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             //start loader
             getLoaderManager().restartLoader(section, null, this);
 
-            rootView = inflater.inflate(R.layout.fragment_image1, container, false);
+            rootView = inflater.inflate(R.layout.detail_webview_fragment, container, false);
 
             titleText = (TextView) rootView.findViewById(R.id.title);
 
@@ -123,7 +123,6 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-//            commentsCursorAdapter.swapCursor(null);
     }
 
 

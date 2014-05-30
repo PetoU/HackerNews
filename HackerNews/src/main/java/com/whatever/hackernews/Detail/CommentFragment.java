@@ -7,15 +7,23 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import com.commonsware.cwac.loaderex.SQLiteCursorLoader;
 import com.whatever.hackernews.JSONdatabaseHelper;
 import com.whatever.hackernews.R;
+import com.whatever.hackernews.model.IndentComment;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by PetoU on 19/05/14.
@@ -28,11 +36,10 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
     private int positionInList;
     private JSONdatabaseHelper dbHelper;
     private SQLiteDatabase database;
-    private SimpleCursorAdapter commentsCursorAdapter;
-    private TextView titleText;
-    private TextView linkText;
-    private ListView listView;
+    private ExpandableListView expListView;
     private Bundle args;
+    private ArrayList<ArrayList<IndentComment>> commentList;
+    private ExpandableCommentsAdapter expCommentsAdapter;
 
     public static Fragment newInstance(int sectionNumber, String commentsLink, int positionInList) {
 
@@ -68,29 +75,28 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
         database = JSONdatabaseHelper.getDatabase();
 
         //adapter for comments session
-        commentsCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.comment_row, null, new String[]{"comment"}, new int[]{R.id.comment}, 0);
+//        commentsCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.comments_group_row, null, new String[]{"comment"}, new int[]{R.id.comment}, 0);
+
+        /*
+        *
+        *
+        * expandable listview setup
+        * */
+
         if (args != null) {
 
-            rootView = inflater.inflate(R.layout.fragment_image2, container, false);
+            rootView = inflater.inflate(R.layout.detail_comments_fragment, container, false);
 
-            titleText = (TextView) rootView.findViewById(R.id.title);
-
-            linkText = (TextView) rootView.findViewById(R.id.link);
-
-            listView = (ListView) rootView.findViewById(R.id.listView);
-            listView.setAdapter(commentsCursorAdapter);
-            Log.e("listview count", Integer.toString(listView.getCount()));
+            expListView = (ExpandableListView) rootView.findViewById(R.id.explistView);
+            expListView.setAdapter(expCommentsAdapter);
 
         }
-
 
         return rootView;
     }
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
-
-        String testQuery = "SELECT * FROM comments GROUP BY commentsLink;";
 
         String query = " SELECT _id, padding, commentsLink, comment" +
                 " FROM " + "comments" +
@@ -103,23 +109,43 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onLoadFinished(Loader loader, Cursor data) {
 
+        commentList = new ArrayList<>();
 
-        if (data != null && data.moveToPosition(positionInList)) {
-            commentsCursorAdapter.swapCursor(data);
-            Log.e("countData", Integer.toString(data.getCount()));
-            commentsCursorAdapter.notifyDataSetChanged();
+        ArrayList<IndentComment> childList = null;
 
-//            titleText.setText(data.getString(2));
-//            linkText.setText(data.getString(3));
+        while (data != null && data.moveToNext()) {
+
+            if (data.getInt(data.getColumnIndex("padding")) == 0) {
+
+                if(childList != null) {
+                    commentList.add(childList);
+                }
+                childList = new ArrayList<>(5);
+                childList.add(new IndentComment(data.getInt(data.getColumnIndex("padding")), data.getString(data.getColumnIndex("comment"))));
+
+            }
+            else{
+                childList.add(new IndentComment(data.getInt(data.getColumnIndex("padding")), data.getString(data.getColumnIndex("comment"))));
+            }
 
         }
+
+        expCommentsAdapter = new ExpandableCommentsAdapter(getActivity(), commentList);
+        expListView.setAdapter(expCommentsAdapter);
+
+//        expCommentsAdapter.swapData(commentList);
+
+//        if (data != null && data.moveToPosition(positionInList)) {
+//            commentsCursorAdapter.swapCursor(data);
+//            Log.e("countData", Integer.toString(data.getCount()));
+//            commentsCursorAdapter.notifyDataSetChanged();
+//        }
 
     }
 
     @Override
     public void onLoaderReset(Loader loader) {
-        commentsCursorAdapter.swapCursor(null);
-        commentsCursorAdapter.notifyDataSetChanged();
+
     }
 
     @Override
