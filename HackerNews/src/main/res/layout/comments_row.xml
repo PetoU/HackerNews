@@ -4,11 +4,13 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:id="@+id/comment_row"
-              android:paddingLeft="@dimen/comment_indent_1">
+              android:id="@+id/comment_row">
 
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:id="@+id/commentTextView"/>
+              android:id="@+id/commentTextView"
+              android:textSize="18sp"
+              android:paddingTop="5dp"
+              android:paddingBottom="5dp"/>
 
 </LinearLayout>

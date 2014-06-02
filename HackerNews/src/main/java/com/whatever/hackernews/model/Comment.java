@@ -6,12 +6,12 @@ package com.whatever.hackernews.model;
  * Class to encapsulate comment string and indentation data
  *
  */
-public class IndentComment {
+public class Comment {
 
     public int indentation;
     public String comment;
 
-    public IndentComment(int indentation, String comment ) {
+    public Comment(int indentation, String comment) {
         this.indentation = indentation;
         this.comment = comment;
     }

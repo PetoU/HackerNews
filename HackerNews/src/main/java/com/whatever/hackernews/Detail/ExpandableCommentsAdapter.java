@@ -1,32 +1,27 @@
 package com.whatever.hackernews.Detail;
 
-import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
-import android.util.SparseArray;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 import com.whatever.hackernews.R;
-import com.whatever.hackernews.model.IndentComment;
+import com.whatever.hackernews.model.Comment;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by PetoU on 29/05/14.
  */
 public class ExpandableCommentsAdapter extends BaseExpandableListAdapter {
 
-    private ArrayList<ArrayList<IndentComment>> commentList;
+    private ArrayList<ArrayList<Comment>> commentList;
     private LayoutInflater inflater;
     private final float scale;
 
-    public ExpandableCommentsAdapter(Context context, ArrayList<ArrayList<IndentComment>> commentList) {
+    public ExpandableCommentsAdapter(Context context, ArrayList<ArrayList<Comment>> commentList) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.commentList = commentList;
         this.scale = context.getResources().getDisplayMetrics().density;
@@ -44,10 +39,8 @@ public class ExpandableCommentsAdapter extends BaseExpandableListAdapter {
         TextView commentTextView = (TextView) convertView.findViewById(R.id.commentTextView);
         commentTextView.setText(groupComment);
 
-        convertView.setPadding(0, 0, 0, 0);
-
-        //expand every group by default
-        
+        int padding = (int) (8 * scale);
+        convertView.setPadding(padding, 0, 0, 0);
 
         return convertView;
     }
@@ -56,7 +49,7 @@ public class ExpandableCommentsAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
         String childComment = commentList.get(groupPosition).get(childPosition + 1).comment;
-        int indentation = commentList.get(groupPosition).get(childPosition).indentation;
+        int indentation = commentList.get(groupPosition).get(childPosition + 1).indentation;
 
         if(convertView == null){
             convertView = inflater.inflate(R.layout.comments_row, null);
@@ -68,7 +61,7 @@ public class ExpandableCommentsAdapter extends BaseExpandableListAdapter {
 //        TODO set padding
 //        convertView.setPadding();
 
-        int padding = (int) (indentation * 15 * scale);
+        int padding = (int) ((indentation * 20 * scale) + (8 * scale));
         convertView.setPadding(padding, 0, 0, 0);
 
         return convertView;
@@ -76,7 +69,7 @@ public class ExpandableCommentsAdapter extends BaseExpandableListAdapter {
 
 //    Class is calling all methods before any commentList available, therefore null pointer exception
 //
-//    public void swapData(ArrayList<ArrayList<IndentComment>> commentList){
+//    public void swapData(ArrayList<ArrayList<Comment>> commentList){
 //        this.commentList = commentList;
 //    }
 
