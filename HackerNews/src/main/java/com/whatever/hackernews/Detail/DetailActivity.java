@@ -1,10 +1,14 @@
-package com.whatever.hackernews.Detail;
+package com.whatever.hackernews.detail;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import com.whatever.hackernews.R;
 
 
@@ -56,6 +60,12 @@ public class DetailActivity extends ActionBarActivity implements ActionBar.TabLi
                             .setTabListener(this));
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override

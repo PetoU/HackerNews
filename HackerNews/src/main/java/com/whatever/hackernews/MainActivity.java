@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.commonsware.cwac.loaderex.acl.SQLiteCursorLoader;
-import com.whatever.hackernews.Detail.DetailActivity;
+import com.whatever.hackernews.detail.DetailActivity;
 import com.whatever.hackernews.login.LoginActivity;
 
 
@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
         // set swipe layout
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
-        swipeLayout.setColorScheme(android.R.color.holo_orange_dark, android.R.color.holo_orange_light, android.R.color.holo_orange_dark, android.R.color.holo_orange_light);
+        swipeLayout.setColorScheme(android.R.color.darker_gray, android.R.color.white, android.R.color.darker_gray, android.R.color.white);
 
         handler = new Handler(this);
         messenger = new Messenger(handler);
@@ -76,6 +76,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
                 intent.putExtra("commentsLink", commentsLink);
                 intent.putExtra("position_in_list", positionInList);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -165,10 +166,6 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.action_refresh){
-            onRefresh();
-        }
 
         if (item.getItemId() == R.id.login){
 

@@ -4,7 +4,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:id="@+id/comment_row">
+              android:id="@+id/comment_row"
+              android:background="#fff9eb">
 
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"

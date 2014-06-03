@@ -2,6 +2,7 @@ package com.whatever.hackernews.login;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import com.whatever.hackernews.Consts;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -56,9 +57,9 @@ public class AsyncLogin extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String GETurl = "https://news.ycombinator.com/newslogin";
-        String POSTurl = "https://news.ycombinator.com/y";
-        String testUrl = "https://news.ycombinator.com/";
+        String GETurl = Consts.LOGIN_FORM_GET;
+        String POSTurl = Consts.LOGIN_POST;
+        String testUrl = Consts.MAINPAGE;
         Map<String, String> loginCookies = null;
 
 

@@ -1,11 +1,9 @@
-package com.whatever.hackernews.Detail;
+package com.whatever.hackernews.detail;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
-import com.whatever.hackernews.Detail.CommentFragment;
-import com.whatever.hackernews.Detail.MainFragment;
 import com.whatever.hackernews.R;
 
 

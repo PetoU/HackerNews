@@ -69,7 +69,7 @@ public class RefreshIntentService extends IntentService {
 
         try {
 
-            URL link = new URL("http://www.kimonolabs.com/api/9tcalo9g?apikey=a48c7934df08db13fd0c08e48f9f4d93");
+            URL link = new URL(Consts.MAINPAGE_LINK_JSON);
 
             HttpURLConnection connection = (HttpURLConnection) link.openConnection();
             connection.setRequestMethod("GET");
@@ -133,8 +133,8 @@ public class RefreshIntentService extends IntentService {
                 String titleLink = jsonTitle.getString("href");
                 String titleString = jsonTitle.getString("text");
 
-                String commentsLink = "null";
-                String commentsString = "null";
+                String commentsLink = "";
+                String commentsString = "";
 
                 try {
 
