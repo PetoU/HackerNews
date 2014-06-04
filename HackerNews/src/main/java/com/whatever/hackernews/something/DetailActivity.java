@@ -1,17 +1,11 @@
-package com.whatever.hackernews.detail;
+package com.whatever.hackernews.something;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import com.whatever.hackernews.R;
-
-import java.lang.reflect.Method;
 
 
 public class DetailActivity extends ActionBarActivity implements ActionBar.TabListener {

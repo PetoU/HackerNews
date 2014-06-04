@@ -1,4 +1,4 @@
-package com.whatever.hackernews.detail;
+package com.whatever.hackernews.something;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -6,7 +6,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -1,4 +1,4 @@
-package com.whatever.hackernews.detail;
+package com.whatever.hackernews.something;
 
 import android.content.Context;
 import android.view.LayoutInflater;
