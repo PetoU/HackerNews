@@ -31,7 +31,7 @@ public class ExpandableCommentsAdapter extends BaseExpandableListAdapter {
 
         String groupComment = commentList.get(groupPosition).get(0).comment;
 
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.comments_row, null);
         }
 
@@ -50,7 +50,7 @@ public class ExpandableCommentsAdapter extends BaseExpandableListAdapter {
         String childComment = commentList.get(groupPosition).get(childPosition + 1).comment;
         int indentation = commentList.get(groupPosition).get(childPosition + 1).indentation;
 
-        if(convertView == null){
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.comments_row, null);
         }
 

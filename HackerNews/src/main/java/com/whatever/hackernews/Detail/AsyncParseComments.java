@@ -17,7 +17,7 @@ public class AsyncParseComments extends AsyncTask<String, Void, String> {
 
     private AsyncParseListener listener;
 
-    public AsyncParseComments(AsyncParseListener listener){
+    public AsyncParseComments(AsyncParseListener listener) {
         this.listener = listener;
     }
 
@@ -63,14 +63,15 @@ public class AsyncParseComments extends AsyncTask<String, Void, String> {
 
             Elements comments = doc.select("table tr table tr:has(table)");
 
-            for(int i = 0; i < comments.size(); i++){
+            for (int i = 0; i < comments.size(); i++) {
 
                 Elements commentElement = comments.get(i).getElementsByClass("comment");
 
                 // remove "reply" from end of string
                 String commentText = commentElement.get(0).text();
 
-                if (commentText.substring(commentText.length()-5, commentText.length()).contains("reply")) {
+                if (commentText.length() > 4 &&
+                        commentText.substring(commentText.length() - 5, commentText.length()).contains("reply")) {
 
                     StringBuilder b = new StringBuilder(commentText);
                     b.replace(commentText.lastIndexOf("reply"), commentText.lastIndexOf("reply") + 5, "");
@@ -87,8 +88,6 @@ public class AsyncParseComments extends AsyncTask<String, Void, String> {
                 values.put("commentsLink", link);
                 values.put("comment", commentText);
 
-//                Log.i("comments, padding", Integer.toString(padding) + " : " + commentText + "\n" + link);
-
                 database.insert("comments", null, values);
             }
 
@@ -104,7 +103,7 @@ public class AsyncParseComments extends AsyncTask<String, Void, String> {
         listener.onParseCommentsComplete(s);
     }
 
-    public interface AsyncParseListener{
-            public void onParseCommentsComplete(String response);
+    public interface AsyncParseListener {
+        public void onParseCommentsComplete(String response);
     }
 }

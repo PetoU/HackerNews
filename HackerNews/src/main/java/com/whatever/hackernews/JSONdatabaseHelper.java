@@ -16,7 +16,6 @@ public class JSONdatabaseHelper extends SQLiteOpenHelper {
     //singleton for one instance of database
     private static JSONdatabaseHelper Singleton;
 
-
     private JSONdatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

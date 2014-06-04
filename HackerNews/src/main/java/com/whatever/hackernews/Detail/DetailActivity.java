@@ -11,6 +11,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import com.whatever.hackernews.R;
 
+import java.lang.reflect.Method;
+
 
 public class DetailActivity extends ActionBarActivity implements ActionBar.TabListener {
 
@@ -44,7 +46,6 @@ public class DetailActivity extends ActionBarActivity implements ActionBar.TabLi
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
-
             }
         });
 
@@ -66,6 +67,8 @@ public class DetailActivity extends ActionBarActivity implements ActionBar.TabLi
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+
     }
 
     @Override

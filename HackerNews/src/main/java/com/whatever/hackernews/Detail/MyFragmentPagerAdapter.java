@@ -18,6 +18,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private final WeakReference<Context> m_Context;
     private final int positionInList;
     private String commentsLink;
+
     public MyFragmentPagerAdapter(FragmentManager fm, Context context, String commentsLink, int positionInList) {
         super(fm);
         this.commentsLink = commentsLink;
@@ -60,7 +61,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
                 return c.getResources().getString(R.string.main).toUpperCase(l);
 
             case 1:
-               return c.getResources().getString(R.string.comments).toUpperCase(l);
+                return c.getResources().getString(R.string.comments).toUpperCase(l);
         }
 
         return "";

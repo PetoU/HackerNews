@@ -6,6 +6,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
     private Bundle args;
     private ArrayList<ArrayList<Comment>> commentList;
     private ExpandableCommentsAdapter expCommentsAdapter;
+    private AsyncParseComments loadComments;
 
     public static Fragment newInstance(int sectionNumber, String commentsLink, int positionInList) {
 
@@ -59,22 +61,14 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
         commentsLink = args.getString("commentsLink");
 
         // parse comments in advance enough
-        AsyncParseComments loadComments = new AsyncParseComments(this);
+        loadComments = new AsyncParseComments(this);
         loadComments.execute(new String[]{commentsLink});
 
         // database setup
         dbHelper = JSONdatabaseHelper.getInstance(getActivity());
         database = JSONdatabaseHelper.getDatabase();
 
-        //adapter for comments session
-//        commentsCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.comments_group_row, null, new String[]{"comment"}, new int[]{R.id.comment}, 0);
-
-        /*
-        *
-        *
-        * expandable listview setup
-        * */
-
+        // expandable listview
         if (args != null) {
 
             rootView = inflater.inflate(R.layout.detail_comments_fragment, container, false);
@@ -97,7 +91,6 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
         return new SQLiteCursorLoader(getActivity(), dbHelper, query, null);
     }
 
-
     @Override
     public void onLoadFinished(Loader loader, Cursor data) {
 
@@ -109,37 +102,40 @@ public class CommentFragment extends Fragment implements LoaderManager.LoaderCal
 
             if (data.getInt(data.getColumnIndex("padding")) == 0) {
 
-                if(childList != null) {
+                if (childList != null) {
                     commentList.add(childList);
                 }
                 childList = new ArrayList<>(5);
                 childList.add(new Comment(data.getInt(data.getColumnIndex("padding")), data.getString(data.getColumnIndex("comment"))));
-            }
-            else{
+            } else {
                 childList.add(new Comment(data.getInt(data.getColumnIndex("padding")), data.getString(data.getColumnIndex("comment"))));
             }
-
         }
 
         expCommentsAdapter = new ExpandableCommentsAdapter(getActivity(), commentList);
         expListView.setAdapter(expCommentsAdapter);
 
         // expand all groups by default
-        for(int i = 0; i < expCommentsAdapter.getGroupCount(); i++){
+        for (int i = 0; i < expCommentsAdapter.getGroupCount(); i++) {
             expListView.expandGroup(i);
         }
-
     }
 
     @Override
     public void onLoaderReset(Loader loader) {
-
     }
 
     @Override
-    public void onParseCommentsComplete(String resposnse) {
-
+    public void onParseCommentsComplete(String response) {
         //restart Loaders
         getLoaderManager().restartLoader(0, args, this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        // cancel background asyncTask
+        loadComments.cancel(true);
     }
 }

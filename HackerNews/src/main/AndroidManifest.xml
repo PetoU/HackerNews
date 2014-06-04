@@ -22,7 +22,8 @@
 
         <activity
             android:name="com.whatever.hackernews.detail.DetailActivity"
-            android:label="@string/title_activity_detail" >
+            android:label="@string/title_activity_detail"
+            android:theme="@style/NoTitleActionBar">
         </activity>
         <activity
             android:name=".login.LoginActivity"

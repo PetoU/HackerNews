@@ -28,7 +28,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     private JSONdatabaseHelper dbHelper;
     private Cursor newsTableCursor;
     private int section;
-//    private SimpleCursorAdapter commentsCursorAdapter;
+    //    private SimpleCursorAdapter commentsCursorAdapter;
     private String titleString = null;
     private String titleLink = null;
     private TextView titleText;
@@ -105,20 +105,20 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-            newsTableCursor = data;
+        newsTableCursor = data;
 
-            if (newsTableCursor != null && newsTableCursor.moveToPosition(positionInList)) {
+        if (newsTableCursor != null && newsTableCursor.moveToPosition(positionInList)) {
 
-                titleString = newsTableCursor.getString(2);
-                titleLink = newsTableCursor.getString(3);
+            titleString = newsTableCursor.getString(2);
+            titleLink = newsTableCursor.getString(3);
 
-                titleText.setText(titleString);
-                linkText.setText(titleLink);
-                webView.loadUrl(titleLink);
+            titleText.setText(titleString);
+            linkText.setText(titleLink);
+            webView.loadUrl(titleLink);
 
-            } else {
-                Log.e("PK", "newsTableCursor null");
-            }
+        } else {
+            Log.e("PK", "newsTableCursor null");
+        }
     }
 
     @Override

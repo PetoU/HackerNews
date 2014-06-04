@@ -20,7 +20,6 @@ public class LoginActivity extends ActionBarActivity implements AsyncLogin.Async
         final EditText userNameText = (EditText) findViewById(R.id.userName);
         final EditText passwordText = (EditText) findViewById(R.id.password);
 
-
         Button loginButton = (Button) findViewById(R.id.login_button);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +37,6 @@ public class LoginActivity extends ActionBarActivity implements AsyncLogin.Async
 
     }
 
-
     @Override
     public void onTaskComplete(int responseCode, String sessionIDcookie) {
 
@@ -50,6 +48,14 @@ public class LoginActivity extends ActionBarActivity implements AsyncLogin.Async
 
         setResult(Activity.RESULT_OK, resultIntent);
 
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        setResult(Activity.RESULT_CANCELED);
         finish();
     }
 }

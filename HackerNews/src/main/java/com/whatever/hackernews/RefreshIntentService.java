@@ -37,17 +37,13 @@ public class RefreshIntentService extends IntentService {
         handler = new Handler();
     }
 
-    public RefreshIntentService(){
+    public RefreshIntentService() {
         super("name");
         handler = new Handler();
     }
 
-
-
-
     @Override
     protected void onHandleIntent(Intent intent) {
-        
 
         // set database helper and database
         JSONdatabaseHelper databaseHelper = JSONdatabaseHelper.getInstance(getApplicationContext());
@@ -81,7 +77,7 @@ public class RefreshIntentService extends IntentService {
             String inputLine;
             response = new StringBuilder();
 
-            while((inputLine = in.readLine()) != null) {
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
 
@@ -96,7 +92,7 @@ public class RefreshIntentService extends IntentService {
                 e.printStackTrace();
 
                 // toast on UI thread
-                handler.post( new Runnable() {
+                handler.post(new Runnable() {
 
                     @Override
                     public void run() {
@@ -170,7 +166,6 @@ public class RefreshIntentService extends IntentService {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
 
     }
 }

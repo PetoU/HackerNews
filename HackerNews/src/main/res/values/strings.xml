@@ -4,7 +4,7 @@
     <string name="app_name">HackerNews</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_detail">detailActivity</string>
+    <string name="title_activity_detail">Detail</string>
     <string name="main">Web</string>
     <string name="comments">...</string>
     <string name="Login">Login</string>

@@ -104,12 +104,11 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
         return false;
     }
 
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         String query = " SELECT _id, position, titleString, titleLink, points, commentsLink, commentsString" +
-                       " FROM " + "news;";
+                " FROM " + "news;";
 
 //        String query = "SELECT * FROM comments GROUP BY commentsLink;";
 
@@ -139,7 +138,6 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
         cursorAdapter.swapCursor(null);
     }
 
-
     @Override
     //
     // swipe to refresh
@@ -150,7 +148,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
         database.execSQL("DELETE FROM news");
         database.execSQL("DELETE FROM comments");
 
-        Toast.makeText(this,"Refreshing", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Refreshing", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(MainActivity.this, RefreshIntentService.class);
         intent.putExtra("messenger", messenger);
@@ -167,7 +165,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.login){
+        if (item.getItemId() == R.id.login) {
 
             // start login activity
             Intent intent = new Intent(this, LoginActivity.class);
@@ -179,6 +177,12 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        sessionIDcookie = data.getStringExtra("sessionID");
+
+        if (data != null) {
+            sessionIDcookie = data.getStringExtra("sessionID");
+            Toast.makeText(getApplicationContext(), "Login token" + "\n" + sessionIDcookie, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Login Unsuccessful", Toast.LENGTH_LONG).show();
+        }
     }
 }

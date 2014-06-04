@@ -84,8 +84,8 @@ public class AsyncLogin extends AsyncTask<String, Void, String> {
 
             loginCookies = response.cookies();
 
-            for(Map.Entry<String, String> entry : loginCookies.entrySet()){
-                  Log.i("cookie", entry.getKey() + " : " + entry.getValue());
+            for (Map.Entry<String, String> entry : loginCookies.entrySet()) {
+                Log.i("cookie", entry.getKey() + " : " + entry.getValue());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class AsyncLogin extends AsyncTask<String, Void, String> {
 
             Elements test = doc.getElementsByClass("pagetop");
 
-            for(Element e : test){
+            for (Element e : test) {
                 Log.i("test", e.text());
             }
 
