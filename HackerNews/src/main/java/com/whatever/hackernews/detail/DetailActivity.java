@@ -1,4 +1,4 @@
-package com.whatever.hackernews.something;
+package com.whatever.hackernews.detail;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;

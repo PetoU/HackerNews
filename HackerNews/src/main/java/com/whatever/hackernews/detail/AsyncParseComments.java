@@ -1,4 +1,4 @@
-package com.whatever.hackernews.something;
+package com.whatever.hackernews.detail;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;

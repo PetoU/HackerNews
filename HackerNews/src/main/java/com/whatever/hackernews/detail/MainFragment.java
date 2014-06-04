@@ -1,4 +1,4 @@
-package com.whatever.hackernews.something;
+package com.whatever.hackernews.detail;
 
 import android.app.Fragment;
 import android.database.Cursor;
