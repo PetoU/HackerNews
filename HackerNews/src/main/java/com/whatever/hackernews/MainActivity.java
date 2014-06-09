@@ -4,6 +4,7 @@ package com.whatever.hackernews;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
@@ -21,6 +22,9 @@ import android.widget.*;
 import com.commonsware.cwac.loaderex.acl.SQLiteCursorLoader;
 import com.whatever.hackernews.detail.DetailActivity;
 import com.whatever.hackernews.login.LoginActivity;
+import com.whatever.hackernews.model.Blur;
+
+import java.io.ByteArrayOutputStream;
 
 
 public class MainActivity extends ActionBarActivity implements Handler.Callback, LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener {
@@ -38,6 +42,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
     private int positionInList;
     private Cursor cursor;
     private String sessionIDcookie;
+    private byte[] bytes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +81,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
                 intent.putExtra("commentsLink", commentsLink);
                 intent.putExtra("position_in_list", positionInList);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.zoom_out);
             }
         });
 
@@ -110,8 +115,6 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
         String query = " SELECT _id, position, titleString, titleLink, points, commentsLink, commentsString" +
                 " FROM " + "news;";
 
-//        String query = "SELECT * FROM comments GROUP BY commentsLink;";
-
         SQLiteCursorLoader loader = new SQLiteCursorLoader(this, dbHelper, query, null);
         return loader;
     }
@@ -125,12 +128,9 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
 
         cursor = data;
 
-
         if (data != null && data.moveToPosition(positionInList)) {
             cursorAdapter.swapCursor(data);
-
         }
-
     }
 
     @Override
@@ -167,12 +167,45 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
 
         if (item.getItemId() == R.id.login) {
 
+            View view = getWindow().getDecorView();
+
+            view.setDrawingCacheEnabled(true);
+            Bitmap raw = view.getDrawingCache();
+            Bitmap cuttedTopBitmap = Bitmap.createBitmap(raw, 0, 50, raw.getWidth(), raw.getHeight() - 50);
+
+            Bitmap scaled = Bitmap.createScaledBitmap(cuttedTopBitmap, 180, 320, true);
+            Bitmap blurred = Blur.fastblur(this, scaled, 25);
+            Bitmap unscaled = Bitmap.createScaledBitmap(blurred, 768, 1280, true);
+
+            //compress
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            unscaled.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            bytes = stream.toByteArray();
+
             // start login activity
             Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra("screenshot", bytes);
             startActivityForResult(intent, LOGIN_REQUEST);
+            overridePendingTransition(R.anim.blur_in, R.anim.abc_fade_out);
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//
+//        BitmapDrawable bitmap = new BitmapDrawable(getResources(), blur);
+//        layout.setBackground(bitmap);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        layout.setBackgroundResource(0);
     }
 
     @Override

@@ -2,12 +2,18 @@ package com.whatever.hackernews.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import com.whatever.hackernews.R;
+import com.whatever.hackernews.model.Blur;
 
 
 public class LoginActivity extends ActionBarActivity implements AsyncLogin.AsyncLoginListener {
@@ -16,6 +22,17 @@ public class LoginActivity extends ActionBarActivity implements AsyncLogin.Async
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getActionBar().hide();
+
+        Intent intent = getIntent();
+        byte[] bytes = intent.getByteArrayExtra("screenshot");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+        BitmapDrawable finalDrawable = new BitmapDrawable(getResources(), bitmap);
+
+        ImageView image = (ImageView) findViewById(R.id.login_backgroundImage);
+        image.setBackground(finalDrawable);
 
         final EditText userNameText = (EditText) findViewById(R.id.userName);
         final EditText passwordText = (EditText) findViewById(R.id.password);
@@ -56,6 +73,6 @@ public class LoginActivity extends ActionBarActivity implements AsyncLogin.Async
         super.onBackPressed();
 
         setResult(Activity.RESULT_CANCELED);
-        finish();
+        overridePendingTransition(R.anim.abc_fade_in, R.anim.blur_out);
     }
 }

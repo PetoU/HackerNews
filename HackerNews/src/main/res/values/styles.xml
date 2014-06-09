@@ -13,9 +13,10 @@
         <item name="android:background">#ff7100</item>
         <item name="android:displayOptions">showTitle</item>
         <item name="android:titleTextStyle">@style/MyTitle</item>
+        <item name="android:windowActionBarOverlay">true</item>
     </style>
 
-    <style name="MyTitle" parent="@android:style/Widget.Holo.ActionBar">
+    <style name="MyTitle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">#fbd392</item>
         <item name="android:textSize">26sp</item>
         <item name="android:layout_gravity">center</item>
@@ -37,6 +38,10 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <!--
+        Style for Detail Activity
+    -->
+
     <style name="NoTitleActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/NoTitle</item>
         <item name="android:actionBarTabStyle">@style/MyTab</item>
@@ -49,8 +54,20 @@
         <item name="android:displayOptions">showTitle</item>
         <item name="android:titleTextStyle">@style/Title</item>
     </style>
-    <style name="Title">
-        <item name="android:textColor">#ff7100</item>
+    <style name="Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:text"> </item>
+    </style>
+
+    <!--
+        Login Activity
+    -->
+
+    <style name="LoginStyle" parent="Theme.AppCompat.Light">
+
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
     </style>
 
 </resources>

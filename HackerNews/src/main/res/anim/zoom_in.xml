@@ -3,10 +3,14 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
      android:interpolator="@android:anim/decelerate_interpolator">
 
-    <translate
-        android:fromXDelta="100%p"
-        android:toXDelta="0"
+    <scale
         android:duration="200"
+        android:fromXScale="0.8"
+        android:fromYScale="0.8"
+        android:toXScale="1"
+        android:toYScale="1"
+        android:pivotX="50%"
+        android:pivotY="50%"
         android:startOffset="70"/>
 
 </set>
