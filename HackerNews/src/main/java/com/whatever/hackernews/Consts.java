@@ -10,4 +10,6 @@ public class Consts {
     public static final String LOGIN_POST = "https://news.ycombinator.com/y";
     public static final String MAINPAGE = "https://news.ycombinator.com/";
 
+    public static final String IMAGE_PARSE = "http://img.bitpixels.com/getthumbnail?code=97621&url=";
+
 }

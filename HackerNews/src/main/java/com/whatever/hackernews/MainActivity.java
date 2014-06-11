@@ -36,13 +36,13 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
     private JSONdatabaseHelper dbHelper;
     private SQLiteDatabase database;
     private LoaderManager loaderManager;
-    private SimpleCursorAdapter cursorAdapter;
     private SwipeRefreshLayout swipeLayout;
     private String commentsLink;
     private int positionInList;
     private Cursor cursor;
     private String sessionIDcookie;
     private byte[] bytes;
+    private MyCursorAdapter cursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
         database = JSONdatabaseHelper.getDatabase();
 
         // set listview and cursor for database
-        cursorAdapter = new SimpleCursorAdapter(this, R.layout.main_forum_listrow, null, new String[]{"titleString", "commentsString"}, new int[]{R.id.title, R.id.comments}, SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
+        cursorAdapter = new MyCursorAdapter(this, null);
 
         ListView listView = (ListView) findViewById(R.id.explistView);
         listView.setAdapter(cursorAdapter);
