@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
+import com.whatever.hackernews.model.ImageRounder;
 
 import java.io.InputStream;
 
@@ -26,7 +27,7 @@ public class AsyncImageParser extends AsyncTask<String, Void, Bitmap> {
 
         Bitmap bitmap = null;
 
-        try{
+        try {
             InputStream in = new java.net.URL(Consts.IMAGE_PARSE + url).openStream();
             bitmap = BitmapFactory.decodeStream(in);
 

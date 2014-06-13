@@ -36,6 +36,9 @@ public class MyCursorAdapter extends CursorAdapter {
         TextView comments = (TextView) view.findViewById(R.id.comments);
         comments.setText(cursor.getString(cursor.getColumnIndex("commentsString")));
 
+        TextView upVotes = (TextView) view.findViewById(R.id.points);
+        upVotes.setText(cursor.getString(cursor.getColumnIndex("points")).replace(" points", ""));
+
         ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
         String url = cursor.getString(cursor.getColumnIndex("titleLink"));
 

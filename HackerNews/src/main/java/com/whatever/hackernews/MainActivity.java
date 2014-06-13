@@ -1,6 +1,7 @@
 package com.whatever.hackernews;
 
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -48,6 +49,9 @@ public class MainActivity extends ActionBarActivity implements Handler.Callback,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
 
         // set swipe layout
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);

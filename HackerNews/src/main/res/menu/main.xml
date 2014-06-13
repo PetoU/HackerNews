@@ -1,11 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:hackernews="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.whatever.hackernews.MainActivity" >
     
     <item
           android:id="@+id/login"
-          android:title="@string/Login"
-          android:showAsAction="ifRoom" />
+          android:title="L"
+          hackernews:showAsAction="always"/>
 
 </menu>
